@@ -1,8 +1,46 @@
 <head>
+  <%
+    var siteTitle = config.title;
+    var pageTitle = page.title ? page.title + ' | ' + siteTitle : siteTitle;
+    var rawDescription = page.description || page.excerpt || (page.layout === 'post' && page.content ? page.content : config.description);
+    var pageDescription = strip_html(rawDescription).replace(/\s+/g, ' ').trim();
+    if (pageDescription.length > 160) pageDescription = pageDescription.slice(0, 157) + '...';
+    var rawPath = page.path || '/';
+    var canonicalPath = rawPath.replace(/(^|\/)index\.html$/, '$1');
+    if (!canonicalPath) canonicalPath = '/';
+    var pageUrl = full_url_for(canonicalPath);
+    var siteImage = full_url_for('/images/pixel-cat-1024.png');
+    var isPost = page.layout === 'post' || /^\d{4}\//.test(rawPath);
+    var pageType = isPost ? 'article' : 'website';
+    var keywords = config.keywords || '';
+  %>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="<%= config.description %>">
-  <title><%= page.title ? page.title + ' | ' + config.title : config.title %></title>
+  <meta name="description" content="<%= pageDescription %>">
+  <% if (keywords) { %>
+    <meta name="keywords" content="<%= keywords %>">
+  <% } %>
+  <meta name="author" content="<%= config.author %>">
+  <meta name="robots" content="index, follow">
+  <title><%= pageTitle %></title>
+  <link rel="canonical" href="<%- pageUrl %>">
   <link rel="icon" href="<%- url_for('/images/pixel-cat.svg') %>" type="image/svg+xml">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:site_name" content="<%= siteTitle %>">
+  <meta property="og:type" content="<%= pageType %>">
+  <meta property="og:title" content="<%= pageTitle %>">
+  <meta property="og:description" content="<%= pageDescription %>">
+  <meta property="og:url" content="<%- pageUrl %>">
+  <meta property="og:image" content="<%- siteImage %>">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<%= pageTitle %>">
+  <meta name="twitter:description" content="<%= pageDescription %>">
+  <meta name="twitter:image" content="<%- siteImage %>">
+  <% if (isPost && page.date) { %>
+    <meta property="article:published_time" content="<%= date_xml(page.date) %>">
+  <% } %>
+  <% if (isPost && page.updated) { %>
+    <meta property="article:modified_time" content="<%= date_xml(page.updated) %>">
+  <% } %>
   <link rel="stylesheet" href="<%- url_for('/css/style.css') %>">
 </head>
