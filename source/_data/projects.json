@@ -5,9 +5,9 @@
     "desc": "从 SSH 连接服务器开始，一步步完成域名解析、防火墙放行、脚本安装和客户端配置。"
   },
   {
-    "name": "ForwardProxy HTTPS 伪装",
-    "url": "/posts/pixelcat-proxy-install-guide/#二、ForwardProxy-的优势：像一个正常-HTTPS-网站",
-    "desc": "走 443/tcp，自动申请真实 HTTPS 证书，浏览器访问代理域名时展示正常伪装站。"
+    "name": "NaiveProxy HTTPS 伪装",
+    "url": "/posts/pixelcat-proxy-install-guide/#二、NaiveProxy-的优势：像一个正常-HTTPS-网站",
+    "desc": "走 443/tcp，使用带 naive 分支 forward_proxy 插件的 Caddy，自动申请真实 HTTPS 证书并展示正常伪装站。"
   },
   {
     "name": "Hysteria2 抗封锁方案",
