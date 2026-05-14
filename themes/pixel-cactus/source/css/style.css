@@ -392,6 +392,24 @@ time,
   border-collapse: collapse;
 }
 
+.content > table {
+  margin: 22px 0;
+  border: 1px solid var(--line);
+}
+
+.content > table th,
+.content > table td {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.content > table th {
+  color: var(--heading);
+  background: var(--code-bg);
+  font-weight: 700;
+}
+
 .content figure.highlight table {
   display: table;
   width: 100%;
