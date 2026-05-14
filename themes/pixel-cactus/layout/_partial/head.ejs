@@ -12,7 +12,9 @@
     var siteImage = full_url_for('/images/pixel-cat.svg');
     var isPost = page.layout === 'post' || /^\d{4}\//.test(rawPath);
     var pageType = isPost ? 'article' : 'website';
-    var keywords = config.keywords || '';
+    var keywords = Array.isArray(page.tags && page.tags.data) && page.tags.data.length
+      ? page.tags.data.map(function(tag) { return tag.name; }).join(', ')
+      : (config.keywords || '');
     var schemaImage = full_url_for('/images/pixel-cat.svg');
     var sameAs = [];
     if (theme.social_links && theme.social_links.length) {
